@@ -51,11 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="30" />
+            <state relative-caret-position="204">
+              <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -71,7 +71,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="M_User.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="M_User.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App/models/M_User.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
@@ -169,8 +169,8 @@
         <option value="$PROJECT_DIR$/App/models/M_Users.php" />
         <option value="$PROJECT_DIR$/startup.php" />
         <option value="$PROJECT_DIR$/App/controllers/C_Main.php" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/.htaccess" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -364,15 +364,15 @@
       <updated>1493643267477</updated>
       <workItem from="1493643268944" duration="14054000" />
       <workItem from="1493918548436" duration="8675000" />
-      <workItem from="1493988463546" duration="7110000" />
+      <workItem from="1493988463546" duration="7561000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29839000" />
+    <option name="totallyTimeSpent" value="30290000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="271" y="409" width="1253" height="680" extended-state="1" />
+    <frame x="271" y="409" width="1253" height="680" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25811824" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -548,14 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/startup.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -627,6 +619,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
           <folding />
         </state>
       </provider>
