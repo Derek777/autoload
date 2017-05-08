@@ -14,7 +14,7 @@ abstract class Controller
     //
     // Полная обработка HTTP запроса.
     //
-    public function Request()
+    public function Index()
     {
         $this->OnInput();
         $this->OnOutput();
@@ -55,12 +55,7 @@ abstract class Controller
     //
     protected function View($fileName, $vars = array())
     {
-        foreach ($vars as $k => $v)
-            $$k = $v;
-
-        ob_start();
-//        include "App/views/views/$fileName";
-        include "..\\views\\$fileName";
-        return ob_get_clean();
+        $v = V_Main::Instance();
+        $v->Render($fileName, $vars);
     }
 }

@@ -2,6 +2,7 @@
 require_once ('\loader.php');
 require_once ('\Router.php');
 
+
 function startup()
 {
     $router = new Router();

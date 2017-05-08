@@ -49,14 +49,14 @@ abstract class C_Base extends Controller
     protected function OnOutput()
     {
         // Основной шаблон всех страниц.
-        $vars = array('content' => $this->content);
-        $page = $this->View('tpl_main.php', $vars);
+//        $vars = array('content' => $this->content);
+//        $page = $this->View('tpl_main.php', $vars);
 
         // Время обработки запроса.
         $time = microtime(true) - $this->start_time;
-        $page .= "<!-- Время генерации страницы: $time сек.-->";
+//        $page .= "<!-- Время генерации страницы: $time сек.-->";
 
         // Вывод HTML.
-        echo $page;
+//        echo $page;
     }
 }
