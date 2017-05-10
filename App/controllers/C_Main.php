@@ -13,9 +13,9 @@ class C_Main extends V_Generator
 
     public function index(){
         echo "connect...";
-        $fff = new M_User();
+//        $fff = new M_User();
 //        $page = new V_Render();
-        $fff->hoho();
+//        $fff->hoho();
 //        $page->start();
         $this->OnOutput();
 
@@ -41,6 +41,7 @@ class C_Main extends V_Generator
 
 //        $this->content = $this->View('www.php', $vars);
         $page = new V_Render();
+        $viev = new View();
 //        $this->get_tpl('rrr.tpl');
 //        $this->set_tpl('{TITLE}', 'Super');
 ////        $this->set_tpl("{title}", "Super");
@@ -49,12 +50,16 @@ class C_Main extends V_Generator
 //        echo $this->template;
 //        $page = V_Main::Instance();
 //
-//        $page->start("rrr");
-        $page->get_tpl("rrr");
-        $page->set_tpl('{TITLE}', 'Super');
-        $page->set_tpl('{TEXT}', 'GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG');
-        $page->tpl_parse();
-        print $page->template;
+        $arr = [11, 22, 33, 44, 55];
+        $viev->generate($arr,"rrr.tpl");
+
+////        $page->start("rrr");
+//        $page->get_tpl("rrr");
+//        $page->set_tpl('{TITLE}', 'Super');
+//        $page->set_tpl('{TEXT}', 'GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG');
+////        $page-$this->set_tpl('{ARR}', $arr);
+//        $page->tpl_parse();
+//        print $page->template;
 
         // C_Base.
 //        parent::OnOutput();
