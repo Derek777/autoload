@@ -1,5 +1,5 @@
 <?php
-//include_once('model/MSQL.php');
+
 
 //
 // Менеджер пользователей
@@ -43,7 +43,7 @@ class M_Users
         $min = date('Y-m-d H:i:s', time() - 60 * 20);
         $t = "time_last < '%s'";
         $where = sprintf($t, $min);
-        $this->msql->Delete('sessions', $where);
+//        $this->msql->Delete($link, 'sessions', $where);
     }
 
     //
@@ -133,24 +133,24 @@ class M_Users
     // $id_user		- если не указан, значит, для текущего
     // результат	- true или false
     //
-    public function Can($priv, $id_user = null)
-    {
-        if ($id_user == null)
-            $id_user = $this->GetUid();
-
-        if ($id_user == null)
-            return false;
-
-        $t = "SELECT count(*) as cnt FROM privs2roles p2r
-			  LEFT JOIN users u ON u.id_role = p2r.id_role
-			  LEFT JOIN privs p ON p.id_priv = p2r.id_priv 
-			  WHERE u.id_user = '%d' AND p.name = '%s'";
-
-        $query  = sprintf($t, $id_user, $priv);
-        $result = $this->msql->Select($query);
-
-        return ($result[0]['cnt'] > 0);
-    }
+//    public function Can($priv, $id_user = null)
+//    {
+//        if ($id_user == null)
+//            $id_user = $this->GetUid();
+//
+//        if ($id_user == null)
+//            return false;
+//
+//        $t = "SELECT count(*) as cnt FROM privs2roles p2r
+//			  LEFT JOIN users u ON u.id_role = p2r.id_role
+//			  LEFT JOIN privs p ON p.id_priv = p2r.id_priv
+//			  WHERE u.id_user = '%d' AND p.name = '%s'";
+//
+//        $query  = sprintf($t, $id_user, $priv);
+//        $result = $this->msql->Select($query);
+//
+//        return ($result[0]['cnt'] > 0);
+//    }
 
     //
     // Проверка активности пользователя
@@ -176,82 +176,111 @@ class M_Users
     // Получение id текущего пользователя
     // результат	- UID
     //
-    public function GetUid()
-    {
-        // Проверка кеша.
-        if ($this->uid != null)
-            return $this->uid;
+//    public function GetUid()
+//    {
+//        // Проверка кеша.
+//        if ($this->uid != null)
+//            return $this->uid;
+//
+//        // Берем по текущей сессии.
+////        $sid = $this->GetSid();
+//
+////        if ($sid == null)
+////            return null;
+//
+//        $t = "SELECT id_user FROM sessions WHERE sid = '%s'";
+//        $query = sprintf($t, mysql_real_escape_string($sid));
+//        $result = $this->msql->Select($query);
+//
+//        // Если сессию не нашли - значит пользователь не авторизован.
+//        if (count($result) == 0)
+//            return null;
+//
+//        // Если нашли - запоминм ее.
+//        $this->uid = $result[0]['id_user'];
+//        return $this->uid;
+//    }
 
-        // Берем по текущей сессии.
-        $sid = $this->GetSid();
+    public function run() {
 
-        if ($sid == null)
-            return null;
+        // подключаемся к серверу
+        $link = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME)
+        or die(mysqli_error_list($link));
 
-        $t = "SELECT id_user FROM sessions WHERE sid = '%s'";
-        $query = sprintf($t, mysql_real_escape_string($sid));
-        $result = $this->msql->Select($query);
-
-        // Если сессию не нашли - значит пользователь не авторизован.
-        if (count($result) == 0)
-            return null;
-
-        // Если нашли - запоминм ее.
-        $this->uid = $result[0]['id_user'];
-        return $this->uid;
+        $result = mysqli_query($link, "SELECT login FROM users ");
+        printf("Select returned %d rows.\n", mysqli_num_rows($result));
     }
+
+//    public function run() {
+//        mysqli_query($link, );
+//        $sth = $this->db->prepare("SELECT id FROM users WHERE login = :login AND password = MD5(:password)");
+//        $sth->execute(array(
+//            ':login' => $_POST['login'],
+//            ':password' => $_POST['password']
+//        ));
+//
+//        $data = $sth->fetchAll();
+//        $count = $sth = rowCount();
+//        if($count > 0) {
+//            Session::init();
+//            Session::set('loggedIn', true);
+//            header('Location: ../dashboard');
+//        } else {
+//            header('Location: ../login');
+//        }
+//    }
 
     //
     // Функция возвращает идентификатор текущей сессии
     // результат	- SID
     //
-    private function GetSid()
-    {
-        // Проверка кеша.
-        if ($this->sid != null)
-            return $this->sid;
-
-        // Ищем SID в сессии.
-        $sid = $_SESSION['sid'];
-
-        // Если нашли, попробуем обновить time_last в базе.
-        // Заодно и проверим, есть ли сессия там.
-        if ($sid != null)
-        {
-            $session = array();
-            $session['time_last'] = date('Y-m-d H:i:s');
-            $t = "sid = '%s'";
-            $where = sprintf($t, mysql_real_escape_string($sid));
-            $affected_rows = $this->msql->Update('sessions', $session, $where);
-
-            if ($affected_rows == 0)
-            {
-                $t = "SELECT count(*) FROM sessions WHERE sid = '%s'";
-                $query = sprintf($t, mysql_real_escape_string($sid));
-                $result = $this->msql->Select($query);
-
-                if ($result[0]['count(*)'] == 0)
-                    $sid = null;
-            }
-        }
-
-        // Нет сессии? Ищем логин и md5(пароль) в куках.
-        // Т.е. пробуем переподключиться.
-        if ($sid == null && isset($_COOKIE['login']))
-        {
-            $user = $this->GetByLogin($_COOKIE['login']);
-
-            if ($user != null && $user['password'] == $_COOKIE['password'])
-                $sid = $this->OpenSession($user['id_user']);
-        }
-
-        // Запоминаем в кеш.
-        if ($sid != null)
-            $this->sid = $sid;
-
-        // Возвращаем, наконец, SID.
-        return $sid;
-    }
+//    private function GetSid()
+//    {
+//        // Проверка кеша.
+//        if ($this->sid != null)
+//            return $this->sid;
+//
+//        // Ищем SID в сессии.
+//        $sid = $_SESSION['sid'];
+//
+//        // Если нашли, попробуем обновить time_last в базе.
+//        // Заодно и проверим, есть ли сессия там.
+//        if ($sid != null)
+//        {
+//            $session = array();
+//            $session['time_last'] = date('Y-m-d H:i:s');
+//            $t = "sid = '%s'";
+//            $where = sprintf($t, mysql_real_escape_string($sid));
+//            $affected_rows = $this->msql->Update('sessions', $session, $where);
+//
+//            if ($affected_rows == 0)
+//            {
+//                $t = "SELECT count(*) FROM sessions WHERE sid = '%s'";
+//                $query = sprintf($t, mysql_real_escape_string($sid));
+//                $result = $this->msql->Select($query);
+//
+//                if ($result[0]['count(*)'] == 0)
+//                    $sid = null;
+//            }
+//        }
+//
+//        // Нет сессии? Ищем логин и md5(пароль) в куках.
+//        // Т.е. пробуем переподключиться.
+//        if ($sid == null && isset($_COOKIE['login']))
+//        {
+//            $user = $this->GetByLogin($_COOKIE['login']);
+//
+//            if ($user != null && $user['password'] == $_COOKIE['password'])
+//                $sid = $this->OpenSession($user['id_user']);
+//        }
+//
+//        // Запоминаем в кеш.
+//        if ($sid != null)
+//            $this->sid = $sid;
+//
+//        // Возвращаем, наконец, SID.
+//        return $sid;
+//    }
 
     //
     // Открытие новой сессии

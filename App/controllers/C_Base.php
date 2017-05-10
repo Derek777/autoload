@@ -25,8 +25,8 @@ abstract class C_Base extends Controller
     {
         // Очистка старых сессий и определение текущего пользователя.
         $mUsers = M_Users::Instance();
-        $mUsers->ClearSessions();
-        $this->user = $mUsers->Get();
+//        $mUsers->ClearSessions();
+//        $this->user = $mUsers->Get();
 
         // Перенаправление на страницу авторизации, если это необходимо.
         if ($this->user == null && $this->needLogin)

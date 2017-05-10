@@ -8,11 +8,12 @@ class Router
 
         $routing = [
             "/" => ['controller' => "C_Main", 'action' => 'index'],
-            "/article" => ['controller' => "C_File", 'action' => 'index']
+            "/article" => ['controller' => "C_File", 'action' => 'index'],
+            "/login" => ['controller' => "C_Login", 'action' => 'index']
+
         ];
-//        echo "sssssss";
+
         if(isset($routing[$route])){
-//            echo "ssss";
             $controller = $routing[$route]['controller'];
             $controller_obj = new $controller();
             $controller_obj->$routing[$route]['action']();

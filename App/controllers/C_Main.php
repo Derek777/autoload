@@ -3,6 +3,9 @@
 
 class C_Main extends C_Base
 {
+    private $input;		// текст для преобразования
+    private $result;	// результат
+
     public function __construct()
     {
         parent::__construct();
@@ -16,18 +19,19 @@ class C_Main extends C_Base
     }
 
     protected function OnOutput(){
-//        $mUsers = M_Users::Instance();
 
-        // Генерация содержимого страницы Welcome.
-//        $vars = array(
-//            'input' => $this->input,
-//            'result' => $this->result,
+
+
+        $mUsers = M_Users::Instance();
+        $mExample = M_Example::Instance();
+
+
+        $vars = array(
+            'input' => $this->input,
+            'result' => $this->result);
 //            'canUseSecretFunctions' => $mUsers->Can('USE_SECRET_FUNCTIONS'));
 
-
-        $arr = [11, 22, 33, 44, 55];
-
-        $this->View("rrr",$arr);
+        $this->View("rrr",$vars);
 
         // C_Base.
         parent::OnOutput();

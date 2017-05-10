@@ -5,9 +5,4 @@ require_once ('\startup.php');
 startup();
 
 
-//echo "index" . '<br>';
-//$ttt = new M_User();
-//$rrr = new C_File();
-//$mod = new M_User();
-//
-//echo"WWWWWWWWWWWW";
+print_r($_SESSION);

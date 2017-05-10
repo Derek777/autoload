@@ -22,6 +22,8 @@ class View
 
     public function Generate($fileName, $vars = array())
     {
+        foreach ($vars as $k => $v)
+            $$k = $v;
         require_once 'App/views/' . $fileName . '.php';
     }
 # первый параметр функции подключает внутри шаблона нужный контент
