@@ -9,10 +9,20 @@
 class View
 {
     public $template_view = null;
+    private static $instance;
 
-    public function generate($content_view, $template_view, $data = null)
+
+    public static function Instance()
     {
-        require_once 'App/views/'.$template_view;
+        if (self::$instance == null)
+            self::$instance = new View();
+
+        return self::$instance;
+    }
+
+    public function Generate($fileName, $vars = array())
+    {
+        require_once 'App/views/' . $fileName . '.php';
     }
 # первый параметр функции подключает внутри шаблона нужный контент
 }

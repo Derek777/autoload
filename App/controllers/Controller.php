@@ -55,7 +55,7 @@ abstract class Controller
     //
     protected function View($fileName, $vars = array())
     {
-        $v = V_Main::Instance();
-        $v->Render($fileName, $vars);
+        $v = View::Instance();
+        $v->Generate($fileName, $vars);
     }
 }

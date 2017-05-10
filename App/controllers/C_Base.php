@@ -1,8 +1,4 @@
 <?php
-//include_once('controller/Controller.php');
-//include_once('model/M_Users.php');
-//include_once('model/M_Example.php');
-
 //
 // Базовый контроллер сайта.
 //
