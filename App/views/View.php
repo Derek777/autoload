@@ -12,6 +12,7 @@ class View
     private static $instance;
 
 
+
     public static function Instance()
     {
         if (self::$instance == null)
@@ -22,8 +23,11 @@ class View
 
     public function Generate($fileName, $vars = array())
     {
+//        print_r($vars);
         foreach ($vars as $k => $v)
             $$k = $v;
+
+
         require_once 'App/views/' . $fileName . '.php';
     }
 # первый параметр функции подключает внутри шаблона нужный контент

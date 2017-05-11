@@ -17,12 +17,12 @@
     <? endif ?>
         <input type="submit" name="normal" value="Обычное преобразование"/>
         <br/>
-    <? if ($canUseSecretFunctions): ?>
-        <input type="submit" name="secret" value="Секретное преобразование"/>
-    <? else: ?>
+<!--    --><?// if ($canUseSecretFunctions): ?>
+<!--        <input type="submit" name="secret" value="Секретное преобразование"/>-->
+<!--    --><?// else: ?>
         <input type="submit" value="Секретное преобразование" disabled="disabled" />
         <em>доступно не всем</em>
-    <? endif ?>
+<!--    --><?// endif ?>
     <br/>
     <br/>
     <a href="/login">Форма авторизации</a>

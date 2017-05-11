@@ -22,8 +22,8 @@ class C_Main extends C_Base
 
 
 
-        $mUsers = M_Users::Instance();
-        $mExample = M_Example::Instance();
+//        $mUsers = M_Users::Instance();
+//        $mExample = M_Example::Instance();
 
 
         $vars = array(

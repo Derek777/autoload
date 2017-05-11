@@ -4,13 +4,14 @@
 //
 // Менеджер пользователей
 //
-class M_Users
+class M_Users extends M_Base
 {
     private static $instance;	// экземпляр класса
     private $msql;				// драйвер БД
     private $sid;				// идентификатор текущей сессии
     private $uid;				// идентификатор текущего пользователя
     private $onlineMap;			// карта пользователей online
+
 
     //
     // Получение экземпляра класса
@@ -29,10 +30,13 @@ class M_Users
     //
     public function __construct()
     {
+        parent::__construct();
         $this->msql = MSQL::Instance();
         $this->sid = null;
         $this->uid = null;
         $this->onlineMap = null;
+
+
     }
 
     //
@@ -209,6 +213,23 @@ class M_Users
 
         $result = mysqli_query($link, "SELECT login FROM users ");
         printf("Select returned %d rows.\n", mysqli_num_rows($result));
+    }
+
+    public function Authorization($login, $password){
+        $query = 'SELECT*FROM users WHERE login="'.$login.'" AND password="'.$password.'"';
+
+        $result = mysqli_query($this->link, $query);
+
+        $user = mysqli_fetch_assoc($result); //преобразуем ответ из БД в нормальный массив
+
+        //Если база данных вернула не пустой ответ - значит пара логин-пароль правильная
+        if (!empty($user)) {
+            //Пользователь прошел авторизацию, выполним какой-то код.
+            return true;
+        } else {
+            //Пользователь неверно ввел логин или пароль, выполним какой-то код.
+            return false;
+        }
     }
 
 //    public function run() {

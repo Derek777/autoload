@@ -11,6 +11,7 @@ define('DB_PASS', '');
 
 function startup()
 {
+    session_start();
     $router = new Router();
     $router->start();
 
@@ -22,7 +23,7 @@ function startup()
 //
 //    // Языковая настройка.
 //    setlocale(LC_ALL, 'ru_RU.CP1251');
-    setlocale (LC_ALL,"");
+//    setlocale (LC_ALL,"");
 //    // Подключение к БД.
 //    mysql_connect($hostname, $username, $password) or die('No connect with data base');
 //    mysql_query('SET NAMES cp1251');
