@@ -60,7 +60,7 @@ class C_Create extends C_Base
                         break;
                     }else{
 
-                        $password = $_POST['password'];//Пароль
+                        $password = md5($_POST['password']);//Пароль
 
                         $this->filename = $_FILES['avatar']['name'];//Ім"я файла
                         $uploaddir = $this->uploaddir;//Шлях до папки з аватарками
@@ -71,32 +71,23 @@ class C_Create extends C_Base
                         $end = $psth_info['extension'];//Розширення файлу аватарки
                         $str = strtolower($end);
 
-                        if(strlen($password)<1){
+                        if(strlen($password)<5){
                             $this->err_message = "Short password";
                             break;
                         }
 
-                        if($_FILES['avatar']['size']>50000){
+                        if($_FILES['avatar']['size']>6000000){
                             $this->err_message = "Veri big file";
                             break;
                         }
 
                         if(!(($str) == "jpg" || $str == "gif" || $str == "jpeg")){
-                            $this->err_message = "Wrong format file";
-                            break;
+
                         }
 
-                        if (move_uploaded_file($_FILES['avatar']['tmp_name'], $uploadfile)) {
-                            echo "file good and load.\n";
-                        }
-//                                else {
-//                                    echo "Attack\n";
-//                                }
-                                echo '<pre>';
-                                echo 'Logs';
-                                print_r($_FILES);
+                        move_uploaded_file($_FILES['avatar']['tmp_name'], $uploadfile);
 
-                                print "</pre>";
+
                         $time = time();
                         $ip = $_SERVER['REMOTE_ADDR'];
                         $brouser = $_SERVER['HTTP_USER_AGENT'];
@@ -110,25 +101,16 @@ class C_Create extends C_Base
 
 
                         $result = $mUsers->Add_user($arr);
-                        print_r($result);
+                        if($result){
+                            $this->err_message = "You create account";
+                            break;
+                        }else{
+                            $this->err_message = "Account creating error";
+                            break;
+                        }
                     }
-
-
-
-
-                    // $password
-                    // $avatar
-
-                    echo "hhhhhhhhhhhhhhh";
                     break;
                 }
-
-
-
-//                $login = strip_tags();
-//                if($mUsers->Is_login($_POST['login'])){
-//                    $this->err_message = "Login exist";
-//                }
             }else{
                 if(empty($_POST['login'])){
                     $this->err_message = "Error login";
@@ -143,31 +125,7 @@ class C_Create extends C_Base
                     $this->err_message = "Error password 2";
                 }
             }
-
         }
-
-
-
-
-
-
-
-//        $this->filename = $_FILES['avatar']['name'];
-//        $uploaddir = 'App/models/';
-//        $uploadfile = $uploaddir . basename($this->filename);
-//        echo $uploadfile;
-//
-//        echo '<pre>';
-//        if (move_uploaded_file($this->filepath, $uploadfile)) {
-//            echo "file good and load.\n";
-//        } else {
-//            echo "Attack\n";
-//        }
-//
-//        echo 'Logs';
-//        print_r($_FILES);
-//
-//        print "</pre>";
     }
 
     protected function OnOutput()
@@ -178,11 +136,9 @@ class C_Create extends C_Base
             'email' => $this->email,
             'err_message' => $this->err_message
         );
-//        $this->content = $this->View('tpl_login.php', $vars);
         $this->View("create",$vars);
 
         // C_Base.
         parent::OnOutput();
     }
-
 }

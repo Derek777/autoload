@@ -50,6 +50,7 @@ class M_Users
         $id_user = $user['id_user'];
 
         // проверяем пароль
+//        dd(md5($password));
         if ($user['password'] != md5($password))
             return false;
 

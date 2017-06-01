@@ -15,7 +15,9 @@ function dd($arr){
     if(is_array($arr)){
         echo '<pre>' . print_r($arr, true) . '</pre>';
     }else{
+        print "</pre>";
         echo $arr;
+        print "</pre>";
     }
     die;
 }

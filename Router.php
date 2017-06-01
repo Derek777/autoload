@@ -10,7 +10,8 @@ class Router
             "/" => ['controller' => "C_Main", 'action' => 'index'],
             "/article" => ['controller' => "C_File", 'action' => 'index'],
             "/login" => ['controller' => "C_Login", 'action' => 'index'],
-            "/create" => ['controller' => "C_Create", 'action' => 'index']
+            "/create" => ['controller' => "C_Create", 'action' => 'index'],
+            "/account" => ['controller' => "C_Account", 'action' => 'index']
 
         ];
 
