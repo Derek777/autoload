@@ -11,7 +11,6 @@ define('DB_PASS', '');
 
 function startup()
 {
-    session_start();
     $router = new Router();
     $router->start();
 

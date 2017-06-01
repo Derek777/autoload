@@ -9,32 +9,64 @@ class C_Main extends C_Base
     public function __construct()
     {
         parent::__construct();
+//        $this->needLogin = true;
     }
 
-    public function index(){
-        echo "connect...";
+    protected function OnInput()
+    {
+        // C_Base.
+        parent::OnInput();
 
-        $this->OnOutput();
+        // Менеджеры.
+//        $mUsers = M_Users::Instance();
+        $mExample = M_Example::Instance();
 
+        // Обработка отправки формы.
+        if ($this->IsPost())
+        {
+            $this->input = $_POST['input'];
+
+            if ($_POST['secret'])
+            {
+                // проверку наличия привилегии здесь не делаем, так как она
+                // зашита в модель
+                $this->result = $mExample->MakeSecretMagic($this->input);
+            }
+            else
+            {
+                $this->result = $mExample->MakeMagic($this->input);
+            }
+        }
+        else
+        {
+//            $this->input = 'Пример';
+//            $this->result = null;
+        }
     }
 
     protected function OnOutput(){
 
 
 
-//        $mUsers = M_Users::Instance();
+        $mUsers = M_Users::Instance();
 //        $mExample = M_Example::Instance();
 
+        parent::OnOutput();
 
+//        $ee =$mUsers->Can('USE_SECRET_FUNCTIONS');
+//        echo $ee;
+//        die();
         $vars = array(
             'input' => $this->input,
-            'result' => $this->result);
-//            'canUseSecretFunctions' => $mUsers->Can('USE_SECRET_FUNCTIONS'));
+            'result' => $this->result,
+            'user' => $this->user,
+            'canUseSecretFunctions' => $mUsers->Can('USE_SECRET_FUNCTIONS'));
 
-        $this->View("rrr",$vars);
+        $this->View("main",$vars);
+
 
         // C_Base.
-        parent::OnOutput();
+
 
     }
 }

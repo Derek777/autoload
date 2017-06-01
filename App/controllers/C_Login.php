@@ -21,34 +21,50 @@ class C_Login extends C_Base
         // Выход из системы пользователя.
         $mUsers = M_Users::Instance();
         $mUsers->Logout();
-        $mBase = M_Base::Instance();
+
 
 
         // C_Base.
         parent::OnInput();
 
-        // Обработка отправки формы.
         if ($this->IsPost())
         {
-            $this->login = $_POST['login'];
-            if ( !empty($_POST['password']) and !empty($_POST['login']) ){
-                $login = $_POST['login'];
-                $password = $_POST['password'];
-                $user_login = $mUsers->Authorization($login, $password);
-                if($user_login){
-                    header('Location: /');
-                    die();
-                }else{
-                    echo "NOT GOOD";
-                }
+            if ($mUsers->Login($_POST['login'],
+                $_POST['password']
+                ))
+            {
+                header('Location: /');
+                die();
             }
 
-
-//            $mUsers->run();
-//                $mBase->get();
+            $this->login = $_POST['login'];
         }else{
-//
+
         }
+
+
+//
+//        // Обработка отправки формы.
+//        if ($this->IsPost())
+//        {
+//            $this->login = $_POST['login'];
+//            if ( !empty($_POST['password']) and !empty($_POST['login']) ){
+//                $login = $_POST['login'];
+//                $password = $_POST['password'];
+//                $user_login = $mUsers->Authorization($login, $password);
+//                if($user_login){
+//                    $_SESSION['auth'] = true;
+//                    $_SESSION['id'] = $user_login['id_user'];
+//                    $_SESSION['login'] = $user_login['login'];
+//                    header('Location: /');
+//                    die();
+//                }else{
+//                    echo "NOT GOOD";
+//                }
+//            }
+//        }else{
+//
+//        }
     }
 
     //
