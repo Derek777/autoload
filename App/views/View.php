@@ -27,8 +27,9 @@ class View
         foreach ($vars as $k => $v)
             $$k = $v;
 
-
-        require_once 'App/views/' . $fileName . '.php';
+$content = $fileName;
+        require_once 'App/views/main_tpl.php';
+//        require_once 'App/views/' . $fileName . '.php';
     }
 # первый параметр функции подключает внутри шаблона нужный контент
 }

@@ -1,6 +1,6 @@
 <?php
-include "App/views/tpl/header.tpl";
-?>
+//include "App/views/tpl/header.tpl";
+//?>
     <h1>HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH</h1>
     <br/>
     <p><?=$login?></p>
@@ -15,5 +15,5 @@ include "App/views/tpl/header.tpl";
     <p><input type="file" name="avatar">
     <br/>
 <?php
-include "App/views/tpl/footer.tpl";
-?>
+//include "App/views/tpl/footer.tpl";
+//?>

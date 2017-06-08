@@ -24,7 +24,7 @@
     <br/>
     <a href="/login">I have account</a>
 </form>
-
+<!---->
 <?php
-include "App/views/tpl/footer.tpl";
-?>
+//include "App/views/tpl/footer.tpl";
+//?>

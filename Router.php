@@ -12,7 +12,6 @@ class Router
             "/login" => ['controller' => "C_Login", 'action' => 'index'],
             "/create" => ['controller' => "C_Create", 'action' => 'index'],
             "/account" => ['controller' => "C_Account", 'action' => 'index']
-
         ];
 
         if(isset($routing[$route])){
